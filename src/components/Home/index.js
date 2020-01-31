@@ -1,4 +1,4 @@
-import React, { Component, useCallback } from 'react';
+import React, { Component } from 'react';
 import firebase from '../../firebase';
 import './home.css';
 
@@ -8,7 +8,8 @@ class Home extends Component {
         super(props);
         this.state = {
             posts: [],
-            user: null
+            user: null,
+            isInitialized: false
         }
 
     }
@@ -36,22 +37,21 @@ class Home extends Component {
 
         firebase.isInitialized()
         .then(async (user) => {
+
             let userState = this.state.user;
             let isInitialized = this.state.isInitialized;
 
-            if(!user){
-                let info = await firebase.getUserName();
-                userState = info;
-            }
+            await firebase.getUserName((userResponse) => {
+                userState = userResponse.val().nome;
+            });
 
             isInitialized = true;
+            
             this.setState({
                 isInitialized: isInitialized,
                 user: userState
             });
         })
-        console.log(firebase.isInitialized());
-
     }
 
     deletar(e){
@@ -70,11 +70,12 @@ class Home extends Component {
                                     <strong>{post.titulo}</strong>
                                     <span>Autor: {post.autor}</span>
                                 </div>
+                                {/* {console.log(this.state.user)} */}
 
-
-                                {this.props.isInitialized === null &&
+                                {this.state.user ?
                                     (<button onClick={(e) => this.deletar(post.key)}>Deletar</button>)
-                                }
+                                :
+                                (<></>)}
 
                             </header>
 
