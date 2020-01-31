@@ -1,0 +1,64 @@
+section#post{
+    width: 100%;
+    max-width: 930px;
+    margin: 0 auto;
+    padding: 0 30px;
+}
+
+section#post article{
+    background: #fff;
+    border: 1px solid #ddd;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+section#post article header{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+section#post article header .title{
+    display: flex;
+    flex-direction: column;
+    font-size: 18px;
+}
+
+section#post article header span{
+    font-size: 13px;
+    padding-top: 5px;
+}
+
+section#post article header button{
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-size: 16px;
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    font-weight: bold;
+    padding: 5px;
+    background-color: #272727;
+    cursor: pointer;
+}
+
+section#post article header button:hover{
+    background-color: #ff0000;
+    color: #fff;
+}
+
+section#post article > img{
+    width: 100%;
+    height: 400px;
+    object-fit: scale-down;
+}
+
+section#post article footer{
+    padding: 20px;
+    word-wrap: break-word;
+}
+
+section#post article footer p{
+    font-size: 15px;
+}
