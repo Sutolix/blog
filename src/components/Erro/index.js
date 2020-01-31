@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 
-class Login extends Component {
+class Erro extends Component {
 
     render() {
         return (
             <div>
-                Login
+                Ops, essa página não existe!
             </div>
         );
     }
 }
 
-export default Login;
+export default Erro;

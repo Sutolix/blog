@@ -1,96 +1,257 @@
 import React, { Component } from 'react';
-import firebase from '../../firebase';
-import './home.css';
+import "./home.css";
 
 class Home extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            posts: [],
-            user: null,
-            isInitialized: false
-        }
-
-    }
-
-    componentDidMount() {
-        //app = app.database() - This have referenced in firebase.js
-        firebase.app.ref('posts').on('value', (snapshot) => {
-            let posts = this.state.posts;
-            posts = [];
-
-            snapshot.forEach((childItem) => {
-                posts.push({
-                    key: childItem.key,
-                    titulo: childItem.val().titulo,
-                    image: childItem.val().image,
-                    descricao: childItem.val().descricao,
-                    autor: childItem.val().autor
-                })
-            });
-            //inverts the order of posts
-            posts.reverse();
-
-            this.setState({ posts: posts });
-        })
-
-        firebase.isInitialized()
-        .then(async (user) => {
-
-            let userState = this.state.user;
-            let isInitialized = this.state.isInitialized;
-
-            await firebase.getUserName((userResponse) => {
-                userState = userResponse.val().nome;
-            });
-
-            isInitialized = true;
-            
-            this.setState({
-                isInitialized: isInitialized,
-                user: userState
-            });
-        })
-    }
-
-    deletar(e){
-        firebase.deletePost(e);
-    }
-
     render() {
         return (
-            <section id="post">
-                {this.state.posts.map((post) => {
-                    return (
-                        <article key={post.key}>
+            <div className="home-container">
 
-                            <header>
-                                <div className="title">
-                                    <strong>{post.titulo}</strong>
-                                    <span>Autor: {post.autor}</span>
-                                </div>
-                                {/* {console.log(this.state.user)} */}
 
-                                {this.state.user ?
-                                    (<button onClick={(e) => this.deletar(post.key)}>Deletar</button>)
-                                :
-                                (<></>)}
+                <div className="questions">
+                    <div className="search shadow">
+                        <input type="text" placeholder="Pesquisar..." />
+                        <img src={require('../../assets/search.png')} alt="search-button" />
+                    </div>
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
 
-                            </header>
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
 
-                            <img src={post.image} alt="Capa do post" />
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
 
-                            <footer>
-                                <p>{post.descricao}</p>
-                            </footer>
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
 
-                        </article>
-                    );
-                })}
-            </section>
-        );
-    }
-}
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
 
-export default Home;
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
+
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
+
+                    <div className="box-question shadow">
+                        <header className="title">Como instalar um drive de vídeo?</header>
+                        <div className="details">
+                            <h3>Usuário: Márcio</h3>
+                            <h3>Tags: Tecnologia, Computador, Drive, Intel</h3>
+                        </div>
+                        <div className="question-text">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                Nullam tortor libero, gravida a diam a, hendrerit laoreet nisl.
+                                Ut condimentum enim sapien, ac gravida mauris convallis elementum.
+                                In rhoncus, justo id volutpat mattis, metus tellus condimentum nibh,
+                                ac elementum est diam aliquam justo. Curabitur vehicula ligula a justo
+                                egestas pretium.
+                            </p>
+                        </div>
+                        <div className="question-footer">
+                            <img src={require('../../assets/answer.png')} />
+                            <p>4 interações</p>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                <div className="painel">
+
+                    <div className="box-login shadow">
+                        <div className="top-text"><h1>Entrar</h1></div>
+                        <label>Email de login:</label>
+                        <input type="email" />
+
+                        <label>Senha:</label>
+                        <input type="password" />
+
+                        <a href="#">Logar</a>
+
+                        <p>Não tem uma conta? Clique aqui.</p>
+                    </div>
+
+                    <div className="box-tags shadow">
+                        <div className="top-text"><h1>Tags mais comuns</h1></div>
+                        <div className="collun">
+                            <div className="row">
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                            </div>
+                            <div className="row">
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                            </div>
+                            <div className="row">
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                                <div className="tag">Computador</div>
+                            </div>
+                        </div>
+                        </div>
+
+                        <div className="box-about shadow">
+                            <div className="top-text"><h1>Sobre</h1></div>
+                            <div className="about-logo">
+                                <img src={require('../../assets/ugandaForum.png')} alt="Ugand Programmers" />
+                                <h1>Uganda Programmers</h1>
+                            </div>
+
+                        </div>
+
+                        <div className="sticky">
+                        <button id="back-to-top">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+                );
+            }
+        }
+        
+        export default Home;
